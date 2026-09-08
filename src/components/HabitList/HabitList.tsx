@@ -1,5 +1,5 @@
 import type { Habit } from "../../types";
-import { currentStreak } from "../../lib/streak";
+import { currentStreak, longestStreak } from "../../lib/streak";
 import HabitItem from "../HabitItem/HabitItem";
 
 interface HabitListProps {
@@ -25,6 +25,7 @@ function HabitList({
           onDeleteHabit={onDeleteHabit}
           onToggleToday={onToggleToday}
           streak={currentStreak(habit.completedDates)}
+          longestStreak={longestStreak(habit.completedDates)}
         />
       ))}
     </ul>

@@ -4,11 +4,12 @@ interface HabitItemProps {
     habit: Habit
     today: string
     streak: number
+    longestStreak: number
     onDeleteHabit: (id: string) => void
     onToggleToday: (id: string) => void
 }
 
-function HabitItem({ habit, today, streak, onDeleteHabit, onToggleToday }: HabitItemProps) {
+function HabitItem({ habit, today, streak, longestStreak, onDeleteHabit, onToggleToday }: HabitItemProps) {
 
     // Opting for inline function
     // function handleDelete() {
@@ -20,7 +21,8 @@ function HabitItem({ habit, today, streak, onDeleteHabit, onToggleToday }: Habit
     return (
         <li>
             <h3>{habit.name}</h3>
-            <p>{streak} days</p>
+            <p>Current streak: {streak} days</p>
+            <p>Longest streak: {longestStreak} days</p>
             {/* box marked checked if todays date is in the completedDates array */}
             <input type="checkbox" checked={habit.completedDates.includes(today)} onChange={() => onToggleToday(habit.id)} />
             <button onClick={() => onDeleteHabit(habit.id)}>Delete</button>

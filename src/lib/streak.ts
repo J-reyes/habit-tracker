@@ -16,3 +16,23 @@ export function currentStreak(completedDates: string[]): number {
     }
     return streak;
 }
+
+export function longestStreak(completedDates: string[]): number {
+    const doneDays = [...completedDates].sort();
+
+    let longest = 0;
+    let currentStreak = 0;
+
+    for (let i = 0; i < doneDays.length; i++) {
+        
+        if (doneDays[i-1] === previousDayISO(doneDays[i])) {
+            currentStreak++;
+        } else {
+            currentStreak = 1;
+        }
+
+        longest = Math.max(longest, currentStreak);
+    }
+
+    return longest;
+}
