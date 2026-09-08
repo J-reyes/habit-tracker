@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Habit } from "./types";
 import { toISO } from "./lib/date";
 
@@ -24,7 +24,14 @@ const dummyHabits: Habit[] = [
 
 
 function App() {
-  const [habits, setHabits] = useState<Habit[]>(dummyHabits);
+  const [habits, setHabits] = useState<Habit[]>(() => {
+    const storedHabits = localStorage.getItem("habits");
+    return storedHabits ? JSON.parse(storedHabits) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("habits", JSON.stringify(habits));
+  }, [habits]);
 
   const todayISO = toISO(new Date());
 
