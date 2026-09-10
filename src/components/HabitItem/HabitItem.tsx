@@ -17,7 +17,6 @@ function HabitItem({ habit, today, streak, longestStreak, onDeleteHabit, onToggl
     // }
     
 
-
     return (
         <li>
             <h3>{habit.name}</h3>

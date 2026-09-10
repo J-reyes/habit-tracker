@@ -1,0 +1,9 @@
+.main {
+  width: min(40rem, calc(100% - 2rem));
+  margin: -2.5rem auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}

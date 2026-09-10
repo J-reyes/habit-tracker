@@ -47,13 +47,15 @@ function App() {
   return (
     <>
       <Header />
-      <AddHabitsForm onAddHabits={handleAddHabits} />
-      <HabitList
-        habits={habits}
-        onDeleteHabit={handleDeleteHabit}
-        onToggleToday={handleToggleToday}
-        today={todayISO}
-      />
+      <main className="main">
+        <AddHabitsForm onAddHabits={handleAddHabits} />
+        <HabitList
+          habits={habits}
+          onDeleteHabit={handleDeleteHabit}
+          onToggleToday={handleToggleToday}
+          today={todayISO}
+        />
+      </main>
     </>
   );
 }

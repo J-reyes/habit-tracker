@@ -1,5 +1,6 @@
 import type { Habit } from "../../types"
 import { useState } from "react"
+import styles from "./AddHabitsForm.module.css"
 
 interface AddHabitsFormProps {
 
@@ -18,9 +19,20 @@ function AddHabitsForm({ onAddHabits }: AddHabitsFormProps) {
 
     
     return (
-        <form onSubmit={handleSubmitHabit}>
-            <input type="text" placeholder="Habit" name="name" value={habitName} onChange={(e) => setHabitName(e.target.value)} required/>
-            <button type="submit">Add Habit</button>
+        <form className={styles.form} onSubmit={handleSubmitHabit}>
+            <input
+                className={styles.input}
+                type="text"
+                placeholder="Name a habit to start a streak"
+                name="name"
+                value={habitName}
+                onChange={(e) => setHabitName(e.target.value)}
+                required
+                aria-label="Habit name"
+            />
+            <button className={styles.submit} type="submit">
+                Add habit
+            </button>
         </form>
     )
 }
