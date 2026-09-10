@@ -1,0 +1,67 @@
+.card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "toggle title delete"
+    "toggle meta delete";
+  column-gap: 0.9rem;
+  row-gap: 0.35rem;
+  align-items: center;
+  padding: 1rem 1.05rem;
+  background: var(--card);
+  border: 1px solid hsl(var(--line));
+  border-radius: var(--radius);
+  box-shadow: 0 8px 22px hsl(30 12% 20% / 0.05);
+}
+
+.toggle {
+  grid-area: toggle;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: hsl(var(--violet));
+  cursor: pointer;
+}
+
+.title {
+  grid-area: title;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.stat {
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: hsl(var(--ice) / 0.18);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.remove {
+  grid-area: delete;
+  align-self: start;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.remove:hover {
+  color: hsl(var(--violet));
+  border-color: hsl(var(--violet) / 0.25);
+  background: hsl(var(--violet) / 0.06);
+}

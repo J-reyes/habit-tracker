@@ -1,6 +1,7 @@
 import type { Habit } from "../../types";
 import { currentStreak, longestStreak } from "../../lib/streak";
 import HabitItem from "../HabitItem/HabitItem";
+import styles from "./HabitList.module.css";
 
 interface HabitListProps {
   habits: Habit[];
@@ -16,7 +17,7 @@ function HabitList({
   onToggleToday,
 }: HabitListProps) {
   return (
-    <ul>
+    <ul className={styles.list}>
       {habits.map((habit) => (
         <HabitItem
           key={habit.id}
