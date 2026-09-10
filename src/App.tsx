@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import type { Habit } from "./types";
 import { toISO } from "./lib/date";
 import { useLocalStorage } from "./hooks/useLocalStorage";

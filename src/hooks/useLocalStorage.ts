@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 
 export function useLocalStorage<T>(key: string, initial: T) {
-    const [habits, setHabits] = useState<T>(() => {
-        const storedHabits = localStorage.getItem(key);
-        return storedHabits ? JSON.parse(storedHabits) as T : initial;
+    const [value, setValue] = useState<T>(() => {
+        const storedValue = localStorage.getItem(key);
+        return storedValue ? JSON.parse(storedValue) as T : initial;
     });
 
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(habits));
-    }, [habits, setHabits]);
+        localStorage.setItem(key, JSON.stringify(value));
+    }, [value, setValue]);
 
-    return [habits, setHabits] as const;
+    return [value, setValue] as const;
 }
