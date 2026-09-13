@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<![CDATA[
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>
+@keyframes hi-pop { 0%{transform:scale(0.85);opacity:0.4} 100%{transform:scale(1);opacity:1} }
+</style>
+</helmet>
+
+<section style="position:relative;display:flex;flex-direction:column;gap:20px;padding:28px 32px;background:#f6f3ee;border-radius:10px;min-width:1180px">
+  <div style="display:flex;align-items:baseline;gap:10px">
+    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:hsl(16,58%,50%);color:#fffdf9;font-size:13px;font-weight:700;font-family:ui-sans-serif,system-ui,sans-serif">3</span>
+    <h2 style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:20px;font-weight:700;color:#1c1917;letter-spacing:-0.01em">What happens at the end of the week?</h2>
+  </div>
+  <p style="margin:0 0 4px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;color:#6f6a64;max-width:64ch">The 2a ring/strip is built on a 7-day window, so day 7 needs a defined behavior. Three options:</p>
+
+  <div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+
+    <!-- 3a WEEK COMPLETE BADGE -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="3a" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(16,58%,50%);padding:2px 8px;border-radius:999px;width:fit-content">3a — WEEK COMPLETE BADGE</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="flex:none;position:relative;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+            <svg width="46" height="46" viewBox="0 0 46 46" style="position:absolute;inset:0;transform:rotate(-90deg)">
+              <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(16,58%,50%)" stroke-width="4"></circle>
+            </svg>
+            <span style="width:36px;height:36px;border-radius:50%;background:hsl(16,58%,50%);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fffdf9;font-family:ui-sans-serif,system-ui,sans-serif">✓</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:0">
+            <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+            <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">Week complete · 7-day streak</p>
+          </div>
+          <button style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+        </div>
+        <p style="margin:0;font-size:0.72rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">New week starts tomorrow</p>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Ring swaps its number for a checkmark and turns solid — a clear "you hit the goal" moment. Tomorrow the ring and strip reset to day 1 of a new week, but the underlying streak count keeps climbing uninterrupted.</p>
+    </div>
+
+    <!-- 3b ROLLING WINDOW -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="3b" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(188,28%,40%);padding:2px 8px;border-radius:999px;width:fit-content">3b — ROLLING WINDOW</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="flex:none;position:relative;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+            <svg width="46" height="46" viewBox="0 0 46 46" style="position:absolute;inset:0;transform:rotate(-90deg)">
+              <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(30,10%,88%)" stroke-width="4"></circle>
+              <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(188,28%,40%)" stroke-width="4" stroke-linecap="round" stroke-dasharray="125.66" stroke-dashoffset="18"></circle>
+            </svg>
+            <span style="width:36px;height:36px;border-radius:50%;background:#fffdf8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:hsl(188,28%,40%);font-family:ui-sans-serif,system-ui,sans-serif">14</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:0">
+            <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+            <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">14-day streak · best 14d</p>
+          </div>
+          <button style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:6px">
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">F</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">M</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+            <span style="width:24px;text-align:center;font-size:0.68rem;color:hsl(16,58%,50%);font-weight:700;font-family:ui-sans-serif,system-ui,sans-serif">W</span>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%,0.35);border:1.5px dashed hsl(188,28%,40%)"></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">No reset moment at all: the strip always shows "today and the 6 days before," sliding forward daily (labels change, not just fill). The ring reflects rolling 7-day completion, so a long streak stays visible continuously instead of restarting.</p>
+    </div>
+
+    <!-- 3c LEVEL UP + ARCHIVE -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="3c" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(36,40%,44%);padding:2px 8px;border-radius:999px;width:fit-content">3c — LEVEL UP + ARCHIVE</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="flex:none;position:relative;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:hi-pop 0.4s ease">
+            <svg width="46" height="46" viewBox="0 0 46 46" style="position:absolute;inset:0;transform:rotate(-90deg)">
+              <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(30,10%,88%)" stroke-width="4"></circle>
+              <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(16,58%,50%)" stroke-width="4" stroke-linecap="round" stroke-dasharray="125.66" stroke-dashoffset="0"></circle>
+            </svg>
+            <span style="width:36px;height:36px;border-radius:50%;background:#fffdf8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:hsl(16,58%,50%);font-family:ui-sans-serif,system-ui,sans-serif">14</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:0">
+            <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+            <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">14-day streak · best 14d</p>
+          </div>
+          <button style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%,0.35);border:1.5px dashed hsl(16,58%,50%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+        </div>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">On day 7 the ring pulses once (a small "level up" moment), then the strip simply refreshes to a fresh empty week — no archive chips to manage, the streak number is the only record that keeps growing.</p>
+    </div>
+
+
+    <!-- 3d MONTH VIEW -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="3d" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(188,28%,40%);padding:2px 8px;border-radius:999px;width:fit-content">3d — MONTH VIEW</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+          <span style="font-size:0.72rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">September</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">M</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">W</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">F</span>
+          <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+          <span></span><span></span>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,90%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,90%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%,0.15);border:1.5px solid hsl(16,58%,50%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:0.7rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(16,58%,50%);display:inline-block"></span>done</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(30,10%,90%);display:inline-block"></span>missed</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%);display:inline-block"></span>upcoming</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">8 of 10 days so far · longest 12d</p>
+          <button style="border:none;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </div>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Trades the compact ring for a full month grid, so missed days are visible in context (e.g. that gray Tuesday) rather than scrolling off after a week. Best as an expanded/detail state — too tall to be every card's default size.</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="position:relative;display:flex;flex-direction:column;gap:20px;padding:28px 32px;background:#f6f3ee;border-radius:10px;min-width:1180px">
+  <div style="display:flex;align-items:baseline;gap:10px">
+    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:hsl(16,58%,50%);color:#fffdf9;font-size:13px;font-weight:700;font-family:ui-sans-serif,system-ui,sans-serif">1</span>
+    <h2 style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:20px;font-weight:700;color:#1c1917;letter-spacing:-0.01em">Habit item — 3 directions to improve it</h2>
+  </div>
+  <p style="margin:0 0 4px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;color:#6f6a64;max-width:60ch">Current version (1a) feels flat: a checkbox, a title, two identical pills, a text-only delete link — no visual hierarchy or sense of progress. Three directions below, each usable on its own.</p>
+
+  <div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+
+    <!-- 1a CURRENT -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span id="1a" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:#6f6a64;padding:2px 8px;border-radius:999px">1a — CURRENT</span>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+        <li style="display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:'toggle title delete' 'toggle meta delete';column-gap:14px;row-gap:6px;align-items:center;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+          <input type="checkbox" checked style="grid-area:toggle;width:1.15rem;height:1.15rem;margin:0;accent-color:hsl(16,58%,50%)" readonly />
+          <h3 style="grid-area:title;margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+          <div style="grid-area:meta;display:flex;flex-wrap:wrap;gap:0.4rem">
+            <p style="margin:0;padding:0.2rem 0.5rem;border-radius:999px;background:hsl(36,40%,62%,0.18);color:#6f6a64;font-size:0.78rem;font-family:ui-sans-serif,system-ui,sans-serif">Current 5d</p>
+            <p style="margin:0;padding:0.2rem 0.5rem;border-radius:999px;background:hsl(36,40%,62%,0.18);color:#6f6a64;font-size:0.78rem;font-family:ui-sans-serif,system-ui,sans-serif">Longest 12d</p>
+          </div>
+          <button style="grid-area:delete;align-self:start;padding:0.35rem 0.55rem;border:1px solid transparent;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.8rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </li>
+      </ul>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Both stats look identical, so "current" vs "longest" needs a re-read every time. No progress cue when unchecked. Delete is a stray text link floating at the corner.</p>
+    </div>
+
+    <!-- 1b MOMENTUM RING -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="1b" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(16,58%,50%);padding:2px 8px;border-radius:999px;width:fit-content">1b — MOMENTUM RING</span>
+      <div style="display:flex;align-items:center;gap:14px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <button onclick="{{ bToggle }}" style="flex:none;position:relative;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:none;padding:0;display:flex;align-items:center;justify-content:center">
+          <svg width="46" height="46" viewBox="0 0 46 46" style="position:absolute;inset:0;transform:rotate(-90deg)">
+            <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(30,10%,88%)" stroke-width="4"></circle>
+            <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(16,58%,50%)" stroke-width="4" stroke-linecap="round" stroke-dasharray="{{ bCirc }}" stroke-dashoffset="{{ bOffset }}" style="transition:stroke-dashoffset 0.4s ease"></circle>
+          </svg>
+          <span style="width:36px;height:36px;border-radius:50%;background:#fffdf8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:hsl(16,58%,50%);font-family:ui-sans-serif,system-ui,sans-serif">{{ bStreak }}</span>
+        </button>
+        <div style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:0">
+          <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+          <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">{{ bLabel }}</p>
+        </div>
+        <button style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif" title="Delete habit">Delete</button>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Click the ring to toggle today — it fills as a 0-to-7-day arc and the number/label update live. The ring itself IS the toggle and shows the streak as fill progress (216° = 5 of a ~8-day personal ring). One glance reads "how am I doing," not two pills to parse. Delete recedes to an icon.</p>
+    </div>
+
+    <!-- 1c WEEKLY DOTS -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="1c" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(188,28%,40%);padding:2px 8px;border-radius:999px;width:fit-content">1c — WEEK STRIP</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+          <button style="flex:none;padding:5px 12px;border-radius:999px;border:none;background:hsl(188,28%,40%);color:#fffdf9;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">✓ Done today</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:0.7rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif;margin-right:2px">S M T W T F S</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%)"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:hsl(188,28%,40%,0.35);border:1.5px dashed hsl(188,28%,40%)"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">Longest streak 12d</p>
+          <button style="border:none;background:transparent;color:#6f6a64;font-size:0.78rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">Delete</button>
+        </div>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Adds context a single number can't: which days got missed. The toggle becomes a clear action button instead of a bare checkbox, so "mark done" reads as an action, not a form field.</p>
+    </div>
+
+
+    <!-- 2a MIX: RING + WEEK STRIP -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px">
+      <span id="2a" style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:#fffdf9;background:hsl(16,58%,50%);padding:2px 8px;border-radius:999px;width:fit-content">2a — RING + WEEK STRIP</span>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 17px;background:#fffdf8;border:1px solid hsl(30,10%,82%);border-radius:6px;box-shadow:0 8px 22px hsl(30,12%,20%,0.05)">
+        <div style="display:flex;align-items:center;gap:14px">
+          <sc-if value="{{ aWeekView }}" hint-placeholder-val="{{ true }}">
+            <button onclick="{{ aToggle }}" style="flex:none;position:relative;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:none;padding:0;display:flex;align-items:center;justify-content:center">
+              <svg width="46" height="46" viewBox="0 0 46 46" style="position:absolute;inset:0;transform:rotate(-90deg)">
+                <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(30,10%,88%)" stroke-width="4"></circle>
+                <circle cx="23" cy="23" r="20" fill="none" stroke="hsl(16,58%,50%)" stroke-width="4" stroke-linecap="round" stroke-dasharray="{{ aCirc }}" stroke-dashoffset="{{ aOffset }}" style="transition:stroke-dashoffset 0.4s ease"></circle>
+              </svg>
+              <span style="width:36px;height:36px;border-radius:50%;background:#fffdf8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:hsl(16,58%,50%);font-family:ui-sans-serif,system-ui,sans-serif">{{ aStreak }}</span>
+            </button>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:0">
+            <h3 style="margin:0;font-size:1.05rem;font-weight:650;letter-spacing:-0.02em;color:#1c1917;font-family:ui-sans-serif,system-ui,sans-serif">Drink water</h3>
+            <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">{{ aLabel }}</p>
+          </div>
+          <button onclick="{{ aToggleExpand }}" style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:hsl(16,58%,50%);font-size:0.72rem;font-weight:600;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif">{{ aExpandLabel }}</button>
+          <button style="flex:none;padding:0.3rem 0.5rem;border:none;border-radius:6px;background:transparent;color:#6f6a64;font-size:0.72rem;cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif" title="Delete habit">Delete</button>
+        </div>
+        <sc-if value="{{ aWeekView }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;gap:6px">
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">M</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">W</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">F</span>
+              <span style="width:24px;text-align:center;font-size:0.68rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+            </div>
+            <div style="display:flex;gap:6px">
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(30,10%,90%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:hsl(16,58%,50%)"></div>
+              <div style="width:24px;height:24px;border-radius:6px;transition:background 0.25s ease;background:{{ aTodayBg }}"></div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ aExpanded }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">M</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">W</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">T</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">F</span>
+            <span style="text-align:center;font-size:0.62rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">S</span>
+            <span></span><span></span>
+            <!-- 1 Tue - 5 Sat -->
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,90%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <!-- 6 Sun - 12 Sat -->
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,90%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(16,58%,50%,0.15);border:1.5px solid hsl(16,58%,50%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <!-- 13 Sun - 19 Sat -->
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <!-- 20 Sun - 26 Sat -->
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <!-- 27 Sun - 30 Wed -->
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+            <div style="aspect-ratio:1;border-radius:5px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%)"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:0.7rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(16,58%,50%);display:inline-block"></span>done</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(30,10%,90%);display:inline-block"></span>missed</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:hsl(30,10%,95%);border:1px dashed hsl(30,10%,85%);display:inline-block"></span>upcoming</span>
+          </div>
+          <p style="margin:0;font-size:0.78rem;color:#6f6a64;font-family:ui-sans-serif,system-ui,sans-serif">8 of 10 days so far · longest 12d</p>
+        </sc-if>
+      </div>
+      <p style="margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#6f6a64;line-height:1.5">Click the ring to toggle today. Click "View month" to swap the ring + week strip for the full month grid; "View week" switches back. Try it.</p>
+    </div>
+
+  </div>
+</section>
+]]>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    b: { done: true, streak: 5, longest: 12 },
+    a: { done: true, streak: 5, longest: 12 },
+    aExpanded: false,
+  };
+
+  toggleExpand() {
+    this.setState(s => ({ aExpanded: !s.aExpanded }));
+  }
+
+  toggle(key) {
+    this.setState(s => {
+      const cur = s[key];
+      const done = !cur.done;
+      const streak = done ? cur.streak + 1 : Math.max(0, cur.streak - 1);
+      const longest = Math.max(cur.longest, streak);
+      return { [key]: { done, streak, longest } };
+    });
+  }
+
+  ringStyle(streak) {
+    const r = 20;
+    const c = 2 * Math.PI * r;
+    const frac = Math.min(streak, 7) / 7;
+    return { circumference: c, offset: c * (1 - frac) };
+  }
+
+  renderVals() {
+    const b = this.state.b;
+    const a = this.state.a;
+    const ringB = this.ringStyle(b.streak);
+    const ringA = this.ringStyle(a.streak);
+    return {
+      bDone: b.done, bStreak: b.streak, bLongest: b.longest,
+      bLabel: `${b.streak}-day streak · best ${b.longest}d`,
+      bCirc: ringB.circumference, bOffset: ringB.offset,
+      bToggle: () => this.toggle('b'),
+      aDone: a.done, aStreak: a.streak, aLongest: a.longest,
+      aLabel: `${a.streak}-day streak · best ${a.longest}d`,
+      aCirc: ringA.circumference, aOffset: ringA.offset,
+      aToggle: () => this.toggle('a'),
+      aTodayBg: a.done ? 'hsl(16,58%,50%)' : 'hsl(30,10%,90%)',
+      aExpanded: this.state.aExpanded,
+      aWeekView: !this.state.aExpanded,
+      aExpandLabel: this.state.aExpanded ? 'View week' : 'View month',
+      aToggleExpand: () => this.toggleExpand(),
+    };
+  }
+}
+</script>
+</body>
+</html>
