@@ -15,6 +15,8 @@ dist-ssr
 # Learning workspace (local only)
 plan.md
 learning-log.md
+# docs/ notes
+docs/
 
 # Editor directories and files
 .vscode/*
