@@ -93,6 +93,26 @@
   background: hsl(var(--violet) / 0.06);
 }
 
+.viewToggle {
+  flex: none;
+  align-self: center;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: hsl(var(--violet));
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.viewToggle:hover {
+  color: hsl(var(--violet));
+  border-color: hsl(var(--violet) / 0.25);
+  background: transparent;
+}
+
 .weekDays {
   display: flex;
   gap: 6px;
@@ -120,4 +140,22 @@
 
 .done {
   background: hsl(var(--violet));
+}
+
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.monthWeekDay {
+  text-align: center;
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+.monthDay {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  background: hsl(30 10% 90%);
 }
