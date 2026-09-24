@@ -23,7 +23,7 @@ function HabitItem({
   const [view, setView] = useState<"week" | "month">("week");
 
   const weekDays = lastNDaysISO(7, today);
-  const ringFraction = Math.min(streak, 7) / 7;
+  const ringFraction = streak === 0 ? 0 : ((streak % 7 === 0 ? 7 : streak % 7) / 7);
   const strokeDashOffset = 2 * Math.PI * 20 * (1 - ringFraction);
   const monthDays: (string | null)[] = monthGridISO(today);
   // get done days for the current month, fitler only for the current month
@@ -44,7 +44,7 @@ function HabitItem({
             aria-label={
               done ? "Mark as not done" : `Mark ${habit.name} as done for today`
             }
-            className={styles.ring}
+            className={`${styles.ring} ${streak > 0 && streak % 7 === 0 ? styles.pulse : ""}`}
             onClick={() => onToggleToday(habit.id)}
           >
             <svg viewBox="0 0 46 46" aria-hidden="true">
