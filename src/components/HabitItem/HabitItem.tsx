@@ -26,6 +26,13 @@ function HabitItem({
   const ringFraction = Math.min(streak, 7) / 7;
   const strokeDashOffset = 2 * Math.PI * 20 * (1 - ringFraction);
   const monthDays: (string | null)[] = monthGridISO(today);
+  // get done days for the current month, fitler only for the current month
+  const doneDays = habit.completedDates.filter(
+    (date) => date.startsWith(today.slice(0, 7)) && date <= today,
+  );
+  const elapsedDays = new Date(today + "T00:00:00").getDate();
+  // for the button
+  const done = habit.completedDates.includes(today);
 
   return (
     <li className={styles.card}>
@@ -33,6 +40,10 @@ function HabitItem({
         {view === "week" && (
           <button
             type="button"
+            aria-pressed={done}
+            aria-label={
+              done ? "Mark as not done" : `Mark ${habit.name} as done for today`
+            }
             className={styles.ring}
             onClick={() => onToggleToday(habit.id)}
           >
@@ -68,18 +79,14 @@ function HabitItem({
             {streak}-day streak • best {longestStreak}
           </p>
         </div>
-        {view === "week" ? (
-          <button
-            className={styles.viewToggle}
-            onClick={() => setView("month")}
-          >
-            <span>View Month</span>
-          </button>
-        ) : (
-          <button className={styles.viewToggle} onClick={() => setView("week")}>
-            <span>View Week</span>
-          </button>
-        )}
+        <button
+          className={styles.viewToggle}
+          onClick={() => setView(view === "week" ? "month" : "week")}
+          aria-label="Toggle view"
+          aria-expanded={view === "month"}
+        >
+          {view === "week" ? "View month" : "View week"}
+        </button>
         <button
           className={styles.remove}
           type="button"
@@ -106,31 +113,50 @@ function HabitItem({
           })}
         </div>
       ) : (
-        <div className={styles.monthGrid}>
-          {weekdayInitials().map((letter, i) => (
-            <span key={i} className={styles.monthWeekDay}>
-              {letter}
+        <>
+          <div className={styles.monthGrid}>
+            {weekdayInitials().map((letter, i) => (
+              <span key={i} className={styles.monthWeekDay}>
+                {letter}
+              </span>
+            ))}
+            {monthDays.map((day, i) =>
+              day === null ? (
+                <span key={`blank-${i}`} />
+              ) : (
+                <span
+                  key={day}
+                  className={
+                    habit.completedDates.includes(day)
+                      ? `${styles.monthDay} ${styles.done}`
+                      : day > today
+                        ? `${styles.monthDay} ${styles.upcoming}`
+                        : day === today
+                          ? `${styles.monthDay} ${styles.today}`
+                          : styles.monthDay
+                  }
+                />
+              ),
+            )}
+          </div>
+          <div className={styles.legend}>
+            <span className={styles.legendItem}>
+              <span className={`${styles.swatch} ${styles.done}`}></span>done
             </span>
-          ))}
-          {monthDays.map((day, i) =>
-            day === null ? (
-              <span key={`blank-${i}`} />
-            ) : (
-              <span
-                key={day}
-                className={
-                  habit.completedDates.includes(day)
-                    ? `${styles.monthDay} ${styles.done}`
-                    : day > today
-                      ? `${styles.monthDay} ${styles.upcoming}`
-                      : day === today
-                        ? `${styles.monthDay} ${styles.today}`
-                        : styles.monthDay
-                }
-              />
-            ),
-          )}
-        </div>
+            <span className={styles.legendItem}>
+              <span className={`${styles.swatch} ${styles.missed}`}></span>
+              missed
+            </span>
+            <span className={styles.legendItem}>
+              <span className={`${styles.swatch} ${styles.upcoming}`}></span>
+              upcoming
+            </span>
+          </div>
+          <p className={styles.legendText}>
+            {doneDays.length} of {elapsedDays} days so far • longest{" "}
+            {longestStreak}d
+          </p>
+        </>
       )}
     </li>
   );

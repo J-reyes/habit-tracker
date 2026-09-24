@@ -171,3 +171,39 @@
  border: 1.5px solid hsl(var(--violet));
  background: hsl(var(--violet) / 0.15);
 }
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.80rem;
+  color: var(--muted);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.missed {
+  background: hsl(30 10% 90%);
+}
+
+.legendText {
+  font-size: .80rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ringFill {
+    transition: none;
+  }
+}
