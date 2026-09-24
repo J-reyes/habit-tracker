@@ -1,75 +1,44 @@
-# React + TypeScript + Vite
+# Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React practice app for tracking daily habits. Add habits, mark today done or not, and see current and longest streaks — all derived from a list of completed dates, not stored as separate fields.
 
-Currently, two official plugins are available:
+Built as **project #6** in the Series II roadmap: persistence with `localStorage`, then extracting that read/write pair into a reusable `useLocalStorage<T>` custom hook.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+- **Add / delete habits** — each habit has a name and a list of completed days (`YYYY-MM-DD`)
+- **Toggle today** — the progress ring is today’s check-off control
+- **Streaks** — current and longest streak are computed from `completedDates` on every render
+- **Week view** — last 7 days as a strip; ring fills over a repeating 7-day window (day 8 looks like day 1; the center number keeps climbing)
+- **Month view** — calendar grid with done / missed / upcoming / today, plus a legend and “X of Y days so far” summary
+- **Persistence** — habits survive refresh via `localStorage`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+- React 19 + TypeScript
+- Vite
+- CSS Modules
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Run locally
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL Vite prints (usually `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build   # typecheck + production build
 ```
+
+## Project layout (high level)
+
+| Path | Role |
+| --- | --- |
+| `src/App.tsx` | Habits state, add / delete / toggle handlers |
+| `src/hooks/useLocalStorage.ts` | Generic persist hook |
+| `src/lib/date.ts` / `streak.ts` | ISO date helpers and streak math |
+| `src/components/HabitItem/` | Card UI (ring, week strip, month grid) |
+
+Learning notes live in `learning-log.md` and `plan.md`.
