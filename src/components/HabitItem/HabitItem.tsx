@@ -116,8 +116,19 @@ function HabitItem({
             day === null ? (
               <span key={`blank-${i}`} />
             ) : (
-              <span key={day} className={styles.monthDay} />
-            )
+              <span
+                key={day}
+                className={
+                  habit.completedDates.includes(day)
+                    ? `${styles.monthDay} ${styles.done}`
+                    : day > today
+                      ? `${styles.monthDay} ${styles.upcoming}`
+                      : day === today
+                        ? `${styles.monthDay} ${styles.today}`
+                        : styles.monthDay
+                }
+              />
+            ),
           )}
         </div>
       )}

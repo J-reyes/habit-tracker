@@ -138,10 +138,6 @@
   background: hsl(30 10% 90%);
 }
 
-.done {
-  background: hsl(var(--violet));
-}
-
 .monthGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -158,4 +154,20 @@
   aspect-ratio: 1;
   border-radius: 5px;
   background: hsl(30 10% 90%);
+}
+
+.done {
+  background: hsl(var(--violet));
+}
+
+.upcoming {
+ /* dashed border */
+ background: hsl(30 10% 95%);
+ border: 1px dashed hsl(30 10% 85%);
+}
+
+.today {
+ /* solid violet border, inner needs to be transparent */
+ border: 1.5px solid hsl(var(--violet));
+ background: hsl(var(--violet) / 0.15);
 }
